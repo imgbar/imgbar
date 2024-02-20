@@ -8,10 +8,6 @@ const { drawText } = window.canvasTxt
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 
-const initTemplates = memeTemplates
-const modifiedTemplates = structuredClone(memeTemplates)
-
-let selectedTemplate = modifiedTemplates[0]
 let image
 let texts
 
@@ -259,7 +255,6 @@ templateImages.forEach((img) => {
   img.addEventListener('click', async (e) => {
     const templateId = e.target.dataset.id
     selectedTemplate = await getTemplate(templateId)
-    console.log(selectedTemplate)
     await setupCanvas()
   })
 })
@@ -297,24 +292,9 @@ function createTextareas() {
   })
 }
 
-const aiGenerateElement = document.getElementById('ai-generate-btn')
-
-aiGenerateElement.addEventListener('click', async (e) => {
-  const res = await fetch('http://127.0.0.1:5000/s/caption', {
-    method: 'post',
-    body: 'foobar',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-  })
-  const body = await res.json()
-  console.log(body)
-})
-
 const addTextElement = document.getElementById('add-text')
 addTextElement.addEventListener('click', (e) => {
-  const newText = structuredClone(initTemplates[selectedTemplate.id].texts[0])
+  const newText = structuredClone(selectedTemplate.texts[0])
   selectedTemplate.texts.push(newText)
   setupCanvas()
 })

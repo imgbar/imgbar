@@ -5,7 +5,7 @@ require 'json'
 require 'openai'
 require_relative 'memeTemplates.rb'
 
-Dotenv.load
+# Dotenv.load
 
 TEMPLATES = MemeTemplates::TEMPLATES
 
@@ -13,6 +13,7 @@ get '/memegenerator' do
   @title = 'Meme Generator'
   @templates = TEMPLATES
   @templates_json = TEMPLATES.to_json
+  @selected_template_json = TEMPLATES[0].to_json
 
   erb :generator
 end
