@@ -1,8 +1,8 @@
 'use strict'
 
-import '/libraries/canvas-txt.js'
-import { drawBackgroundImage, setImage } from '/image.js'
-import { setDownloadLink } from '/controls.js'
+import './libraries/canvas-txt.js'
+import { drawBackgroundImage, setImage } from './image.js'
+import { setDownloadLink } from './controls.js'
 const { drawText } = window.canvasTxt
 
 const canvas = document.getElementById('canvas')
@@ -51,6 +51,9 @@ function draw() {
 }
 
 function createTextBoxes() {
+  const textBoxes = document.querySelectorAll('.text-box')
+  textBoxes.forEach((box) => box.remove())
+
   texts.forEach((text, i) => {
     const div = document.createElement('div')
     div.classList.add('text-box')
@@ -104,7 +107,7 @@ function createWidthHandle() {
     const widthHandle = document.createElement('div')
     widthHandle.classList.add('text-box-width-handle')
 
-    let isDragging
+    let isDragging = false
     let offsetX
 
     widthHandle.addEventListener('mousedown', (e) => {
@@ -141,7 +144,7 @@ function createHeightHandle() {
     const heightHandle = document.createElement('div')
     heightHandle.classList.add('text-box-height-handle')
 
-    let isDragging
+    let isDragging = false
     let offsetY
 
     heightHandle.addEventListener('mousedown', (e) => {
@@ -173,12 +176,6 @@ function createHeightHandle() {
 }
 
 async function setupCanvas() {
-  const textBoxes = document.querySelectorAll('.text-box')
-  textBoxes.forEach((box) => box.remove())
-
-  const mgControls = document.getElementById('mg-controls')
-  mgControls.innerHTML = ''
-
   document.getElementById('mg-title').innerHTML = selectedTemplate.title
 
   image = await setImage(selectedTemplate.imagePath)
@@ -267,6 +264,8 @@ async function getTemplate(id) {
 
 function createTextareas() {
   const mgControls = document.getElementById('mg-controls')
+  mgControls.innerHTML = ''
+
   texts.forEach((text, i) => {
     const mgControl = document.createElement('div')
     mgControl.classList.add('mg-control')
