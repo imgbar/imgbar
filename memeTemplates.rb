@@ -3,6 +3,7 @@ TEMPLATES = [
   {
     id: 0,
     title: "Running Away Balloon",
+    slug: "running-away-balloon",
     imagePath: "/running-away-balloon.png",
     texts: [
       {
@@ -49,6 +50,7 @@ TEMPLATES = [
   {
     id: 1,
     title: "One Does Not Simply",
+    slug: "one-does-not-simply",
     imagePath: "/one-does-not-simply.jpg",
     texts: [
       {
@@ -69,6 +71,7 @@ TEMPLATES = [
   {
     id: 2,
     title: "Midwit",
+    slug: "midwit",
     imagePath: "/midwit.png",
     texts: [
       {

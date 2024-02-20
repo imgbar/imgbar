@@ -274,6 +274,7 @@ function createTextareas() {
     const textarea = document.createElement('textarea')
     textarea.classList.add('mg-textarea')
     textarea.placeholder = `Text #${i + 1}`
+    textarea.name = `Text #${i + 1}`
     textarea.value = text.value
     mgControl.appendChild(textarea)
 

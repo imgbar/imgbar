@@ -7,19 +7,30 @@ require_relative 'memeTemplates.rb'
 
 # Dotenv.load
 
-TEMPLATES = MemeTemplates::TEMPLATES
+templates = MemeTemplates::TEMPLATES
 
 get '/memegenerator' do
   @title = 'Meme Generator'
-  @templates = TEMPLATES
-  @templates_json = TEMPLATES.to_json
-  @selected_template_json = TEMPLATES[0].to_json
+  @templates = templates
+  template = templates[rand(0..@templates.length - 1)]
+  @selected_template_json = template.to_json
+
+  erb :generator
+end
+
+get '/memegenerator/:template' do
+  template = templates.find { |t| t[:slug] == params[:template]}
+
+  @title = "#{template[:title]} Meme Generator"
+  @templates = templates
+  @selected_template_json = template.to_json
 
   erb :generator
 end
 
 get '/template/:id' do
-  @template = TEMPLATES[params[:id].to_i]
+  @template = templates[params[:id].to_i]
+
   content_type 'application/json'
   @template.to_json
 end
