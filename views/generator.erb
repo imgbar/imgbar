@@ -6,7 +6,11 @@
 
     <div id="mg-controls-parent">
       <h3 id="mg-title"></h3>
-      <section id="templates"></section>
+      <section id="templates">
+        <% @templates.each do |template| %>
+          <img data-id='<%= template[:id] %>' class='template' title='<%= template[:title] %>' src='<%= template[:imagePath] %>'>
+        <% end %>
+      </section>
 
       <div id="mg-controls"></div>
 

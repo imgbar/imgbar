@@ -7,12 +7,20 @@ require_relative 'memeTemplates.rb'
 
 Dotenv.load
 
+TEMPLATES = MemeTemplates::TEMPLATES
+
 get '/memegenerator' do
   @title = 'Meme Generator'
-  @templates = MemeTemplates::TEMPLATES
-  @templates_json = MemeTemplates::TEMPLATES.to_json
+  @templates = TEMPLATES
+  @templates_json = TEMPLATES.to_json
 
   erb :generator
+end
+
+get '/template/:id' do
+  @template = TEMPLATES[params[:id].to_i]
+  content_type 'application/json'
+  @template.to_json
 end
 
 # OPENAI_API_KEY = ENV["OPENAI_API_KEY"]
@@ -43,6 +51,6 @@ end
 #     })
 # puts response.dig("choices", 0, "message", "content")
 
-post '/generate' do 
-  return response.dig("choices", 0, "message", "content")
-end
+# post '/generate' do 
+#   return response.dig("choices", 0, "message", "content")
+# end
