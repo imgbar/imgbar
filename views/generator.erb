@@ -1,0 +1,26 @@
+<main>
+  <section id="mg">
+    <div id="canvas-parent">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="mg-controls-parent">
+      <h3 id="mg-title"></h3>
+      <section id="templates"></section>
+
+      <div id="mg-controls"></div>
+
+      <div id="mg-actions">
+        <button id="add-text">Add Text</button>
+        <button id="download-btn">Download Meme</button>
+        <button id="ai-generate-btn">Generate with AI</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const memeTemplates = <%= @templates_json %>
+</script>
+
+<script type="module" src="/canvas.js"></script>
