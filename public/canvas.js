@@ -1,6 +1,7 @@
 'use strict'
 
 import './libraries/canvas-txt.js'
+import './libraries/htmx.js'
 import { drawBackgroundImage, setImage } from './image.js'
 import { setDownloadLink } from './controls.js'
 const { drawText } = window.canvasTxt
@@ -297,4 +298,27 @@ addTextElement.addEventListener('click', (e) => {
   const newText = structuredClone(selectedTemplate.texts[0])
   selectedTemplate.texts.push(newText)
   setupCanvas()
+})
+
+const searchResultsElement = document.querySelector('.search-results')
+searchResultsElement.addEventListener('click', async (e) => {
+  const searchResultElement = e.target.closest('div')
+  const templateId = searchResultElement.dataset.id
+  selectedTemplate = await getTemplate(templateId)
+  await setupCanvas()
+})
+
+const searchInputElement = document.getElementById('search')
+
+document.addEventListener('click', (e) => {
+  if (e.target !== searchInputElement) {
+    searchResultsElement.innerHTML = ''
+    searchResultsElement.classList.remove('search-results-open')
+  }
+})
+
+document.addEventListener('htmx:afterRequest', (e) => {
+  if (e.detail.target === searchResultsElement) {
+    searchResultsElement.classList.add('search-results-open')
+  }
 })

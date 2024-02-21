@@ -187,6 +187,41 @@ footer {
   cursor: pointer;
 }
 
+.search-results {
+  visibility: hidden;
+  position: absolute;
+  background-color: #fff;
+  padding: 12px;
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+.search-results-open {
+  visibility: visible !important;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.search-result:hover {
+  background-color: #bbb;
+}
+
+.search-result img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+}
+
+.search-result p {
+  padding-inline-end: 4px;
+}
+
 @media (min-width: 800px) {
   #mg {
     flex-direction: row;

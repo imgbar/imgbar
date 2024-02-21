@@ -1,11 +1,6 @@
-require 'dotenv'
 require 'sinatra'
-require 'sqlite3'
-require 'json'
-require 'openai'
+require 'uri'
 require_relative 'memeTemplates.rb'
-
-# Dotenv.load
 
 templates = MemeTemplates::TEMPLATES
 
@@ -35,34 +30,21 @@ get '/template/:id' do
   @template.to_json
 end
 
-# OPENAI_API_KEY = ENV["OPENAI_API_KEY"]
+post '/search' do
+  request.body.rewind
+  data = URI.decode_www_form(request.body.read)
+  search_query = data.assoc('search').last.downcase
+  template_titles = templates.map { |t| t[:title].downcase }
+  results = templates.filter do |t| 
+    t[:title].downcase.include?(search_query) 
+  end
 
-# client = OpenAI::Client.new(access_token: OPENAI_API_KEY )
-# system_prompt = "You are a expert dank meme maker."
-# user_prompt = <<-PROMPT 
-# Write a caption for the meme template of Buff Doge vs Cheems.
-# Do not include any explanations, only provide a  RFC8259 compliant JSON response  following this format without deviation.
-# [{
-#   "meme template": "name of the meme template",
-#   "texts": [
-#     "first sentence for the meme template, to be written under Buff Doge",
-#     "second sentence for the meme template, to be written under Cheems"
-#   ]
-# }]
-# The JSON response:
-# PROMPT
+  return "<p>No results found</p>" if results.length == 0
 
-# response = client.chat(
-#     parameters: {
-#         model: "gpt-3.5-turbo",
-#         messages: [
-#           { role: "system", content: system_prompt},
-#           { role: "user", content: user_prompt}
-#         ], 
-#         temperature: 0.7,
-#     })
-# puts response.dig("choices", 0, "message", "content")
-
-# post '/generate' do 
-#   return response.dig("choices", 0, "message", "content")
-# end
+  results.map do |result|
+    "<div data-id='#{result[:id]}' class='search-result'>
+      <img src='#{result[:imagePath]}' />
+      <p>#{result[:title]}</p>
+    </div>"
+  end
+end
