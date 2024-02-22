@@ -6,17 +6,22 @@
     </div>
 
     <div id="mg-controls-parent">
-      <input 
-        type='search' 
-        id='search'
-        name='search' 
-        placeholder='Search all memes'
-        autocomplete='off'
-        hx-post='/search'
-        hx-trigger='input changed delay:500ms, search'
-        hx-target='.search-results'
-      >
-      <div class='search-results'></div>
+      <div id='actions-top'>
+        <div>
+          <input 
+          type='search' 
+          id='search'
+          name='search' 
+          placeholder='Search all memes'
+          autocomplete='off'
+          hx-post='/search'
+          hx-trigger='input changed delay:500ms, search'
+          hx-target='.search-results'
+          >
+          <div class='search-results'></div>
+        </div>
+
+      </div>
       <h3 id="mg-title"></h3>
       <section id="templates">
         <% @templates.each do |template| %>
@@ -29,10 +34,10 @@
       <div id="mg-actions">
         <button id="add-text">Add Text</button>
         <button id="download-btn">Download Meme</button>
-        <button id="ai-generate-btn">Generate with AI</button>
       </div>
     </div>
   </section>
+
 </main>
 
 <script>

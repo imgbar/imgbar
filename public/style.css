@@ -33,11 +33,23 @@ button {
   cursor: pointer;
 }
 
-/* Layout */
+:root {
+  --gray-0: #f8f9fa;
+  --gray-1: #f1f3f5;
+  --gray-2: #e9ecef;
+  --gray-3: #dee2e6;
+  --gray-4: #ced4da;
+  --gray-5: #adb5bd;
+  --gray-6: #868e96;
+  --gray-7: #495057;
+  --gray-8: #343a40;
+  --gray-9: #212529;
+}
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--gray-9);
 }
 
 main {
@@ -51,15 +63,17 @@ main {
 }
 
 header {
-  margin: 12px;
+  padding: 16px;
+  background-color: var(--gray-8);
 }
 
 #header-logo {
-  height: 36px;
+  height: 32px;
 }
 
 footer {
-  margin: 72px 0px 32px 0px;
+  padding: 48px;
+  background-color: var(--gray-8);
 }
 
 #footer-logo {
@@ -72,7 +86,7 @@ footer {
   flex-direction: column;
   justify-content: center;
 
-  background-color: #e9ecef;
+  background-color: var(--gray-2);
   padding: 24px;
   border-radius: 2px;
   max-width: 1000px;
@@ -93,6 +107,9 @@ footer {
   flex-grow: 1;
 }
 
+#actions-top {
+}
+
 #mg-controls {
   flex-grow: 1;
   margin-top: 24px;
@@ -107,7 +124,7 @@ footer {
 }
 
 #mg-title {
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 .mg-control {
@@ -137,7 +154,7 @@ footer {
 }
 
 .text-box:hover {
-  border: 1.6px dashed #555;
+  border: 1.6px dashed var(--gray-3);
 
   .text-box-width-handle {
     visibility: visible;
@@ -153,8 +170,8 @@ footer {
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: whitesmoke;
-  border: 1px solid black;
+  background-color: var(--gray-3);
+  border: 1px solid var(--gray-9);
   top: 50%;
   left: 100%;
   transform: translate(-50%, -50%);
@@ -166,8 +183,8 @@ footer {
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: whitesmoke;
-  border: 1px solid black;
+  background-color: var(--gray-3);
+  border: 1px solid var(--gray-9);
   left: 50%;
   top: 100%;
   transform: translate(-50%, -50%);
@@ -175,7 +192,6 @@ footer {
 }
 
 #templates {
-  margin-top: 24px;
   display: flex;
   gap: 6px;
 }
@@ -187,12 +203,16 @@ footer {
   cursor: pointer;
 }
 
+#search {
+  position: relative;
+}
+
 .search-results {
   visibility: hidden;
   position: absolute;
-  background-color: #fff;
+  background-color: var(--gray-0);
   padding: 12px;
-  border: 1px solid #000;
+  border: 1px solid #11151c;
   border-radius: 2px;
 }
 
@@ -209,7 +229,7 @@ footer {
 }
 
 .search-result:hover {
-  background-color: #bbb;
+  background-color: var(--gray-2);
 }
 
 .search-result img {
@@ -230,9 +250,5 @@ footer {
 
   #canvas-parent {
     width: 450px;
-  }
-
-  #mg-title {
-    margin-top: 0px;
   }
 }

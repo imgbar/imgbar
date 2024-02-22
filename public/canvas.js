@@ -310,13 +310,6 @@ searchResultsElement.addEventListener('click', async (e) => {
 
 const searchInputElement = document.getElementById('search')
 
-document.addEventListener('click', (e) => {
-  if (e.target !== searchInputElement) {
-    searchResultsElement.innerHTML = ''
-    searchResultsElement.classList.remove('search-results-open')
-  }
-})
-
 document.addEventListener('htmx:afterRequest', (e) => {
   if (e.detail.target === searchResultsElement) {
     searchResultsElement.classList.add('search-results-open')
