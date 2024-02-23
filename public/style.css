@@ -251,6 +251,11 @@ footer {
   width: 300px;
   padding: 12px;
   border: 1px solid var(--gray-9);
+  display: none;
+}
+
+.modal-open {
+  display: block;
 }
 
 .modal-body {

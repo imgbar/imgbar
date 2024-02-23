@@ -322,11 +322,30 @@ document.addEventListener('click', (e) => {
   }
 })
 
+const templateModal = document.getElementById('template-modal')
+const templateButton = document.getElementById('template-trigger')
+const templateImg = document.getElementById('template-img')
+const templatePostUpload = document.getElementById('template-post-upload')
+const templateCheckbox = document.getElementById('template-checkbox')
+
+templateButton.addEventListener('click', (e) => {
+  templateModal.classList.add('modal-open')
+})
+
 const templateInput = document.getElementById('template-input')
 templateInput.addEventListener('change', (e) => {
   const file = e.target.files[0]
-  const img = document.getElementById('template-img')
-  img.src = URL.createObjectURL(file)
-  const templatePostUpload = document.getElementById('template-post-upload')
+  templateImg.src = URL.createObjectURL(file)
   templatePostUpload.style.display = 'flex'
+})
+
+document.addEventListener('click', (e) => {
+  const clickedOnTrigger = e.target === templateButton
+  const clickedOnModal = e.target.closest('.modal-open')
+  if (!clickedOnTrigger && !clickedOnModal) {
+    templateModal.classList.remove('modal-open')
+    templatePostUpload.style.display = 'none'
+    templateImg.src = ''
+    templateCheckbox.checked = false
+  }
 })
