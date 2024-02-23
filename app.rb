@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 require 'uri'
 require_relative 'memeTemplates.rb'
 
