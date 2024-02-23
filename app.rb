@@ -5,7 +5,7 @@ require_relative 'memeTemplates.rb'
 
 templates = MemeTemplates::TEMPLATES
 
-get '/memegenerator' do
+get '/' do
   @title = 'Meme Generator'
   @templates = templates
   template = templates[rand(0..@templates.length - 1)]
@@ -14,7 +14,7 @@ get '/memegenerator' do
   erb :generator
 end
 
-get '/memegenerator/:template' do
+get '/:template' do
   template = templates.find { |t| t[:slug] == params[:template]}
 
   @title = "#{template[:title]} Meme Generator"
