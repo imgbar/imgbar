@@ -4,6 +4,8 @@ import './libraries/canvas-txt.js'
 import './libraries/htmx.js'
 import { drawBackgroundImage, setImage } from './image.js'
 import { setDownloadLink } from './controls.js'
+import './templateModal.js'
+
 const { drawText } = window.canvasTxt
 
 const canvas = document.getElementById('canvas')
@@ -319,33 +321,5 @@ document.addEventListener('htmx:afterRequest', (e) => {
 document.addEventListener('click', (e) => {
   if (e.target !== searchResultsElement) {
     searchResultsElement.classList.remove('search-results-open')
-  }
-})
-
-const templateModal = document.getElementById('template-modal')
-const templateButton = document.getElementById('template-trigger')
-const templateImg = document.getElementById('template-img')
-const templatePostUpload = document.getElementById('template-post-upload')
-const templateCheckbox = document.getElementById('template-checkbox')
-
-templateButton.addEventListener('click', (e) => {
-  templateModal.classList.add('modal-open')
-})
-
-const templateInput = document.getElementById('template-input')
-templateInput.addEventListener('change', (e) => {
-  const file = e.target.files[0]
-  templateImg.src = URL.createObjectURL(file)
-  templatePostUpload.style.display = 'flex'
-})
-
-document.addEventListener('click', (e) => {
-  const clickedOnTrigger = e.target === templateButton
-  const clickedOnModal = e.target.closest('.modal-open')
-  if (!clickedOnTrigger && !clickedOnModal) {
-    templateModal.classList.remove('modal-open')
-    templatePostUpload.style.display = 'none'
-    templateImg.src = ''
-    templateCheckbox.checked = false
   }
 })
