@@ -315,3 +315,18 @@ document.addEventListener('htmx:afterRequest', (e) => {
     searchResultsElement.classList.add('search-results-open')
   }
 })
+
+document.addEventListener('click', (e) => {
+  if (e.target !== searchResultsElement) {
+    searchResultsElement.classList.remove('search-results-open')
+  }
+})
+
+const templateInput = document.getElementById('template-input')
+templateInput.addEventListener('change', (e) => {
+  const file = e.target.files[0]
+  const img = document.getElementById('template-img')
+  img.src = URL.createObjectURL(file)
+  const templatePostUpload = document.getElementById('template-post-upload')
+  templatePostUpload.style.display = 'flex'
+})
