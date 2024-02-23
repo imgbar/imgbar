@@ -1,5 +1,4 @@
-module MemeTemplates
-TEMPLATES = [
+Templates = [
   {
     id: 0,
     title: "Running Away Balloon",
@@ -116,6 +115,5 @@ TEMPLATES = [
     ],
   }
 ]
-end
 
 

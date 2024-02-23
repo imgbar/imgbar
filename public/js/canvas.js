@@ -196,7 +196,7 @@ async function setupCanvas() {
   updateFillColor()
 }
 
-await setupCanvas()
+setupCanvas()
 
 function updateValue() {
   const textareas = document.querySelectorAll('.mg-textarea')
