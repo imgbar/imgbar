@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'uri'
 require 'sqlite3'
+require 'securerandom'
 
 db = SQLite3::Database.new "main.db"
 # db.results_as_hash = true
@@ -46,12 +47,11 @@ post '/search' do
 end
 
 post '/add' do
-  image = params["image"]["tempfile"]
+  file = params["image"]["tempfile"].read
   ext = File.extname(params["image"]["filename"])
-  image_name = "1#{ext}"
-  File.open("public/media/#{image_name}", 'wb') do |file|
-    file.write(image.read)
-  end
+  file_name = SecureRandom.hex(3) + ext
+
+  File.write("public/media/#{file_name}", file)
 
   "200"
 end
