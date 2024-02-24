@@ -56,7 +56,37 @@ post '/add' do
   file_path = "public#{file_path_relative}"
 
   File.write(file_path, file)
-  templates = {id: rand(10..50), imagePath: file_path_relative, title: 'foobar', texts: []}
+  templates = {id: rand(10..50),
+  imagePath: file_path_relative,
+  title: 'foobar', 
+  texts: [
+    {
+      "dimensions": {
+          "heightPercentOfCanvas": 0.2,
+          "leftOffsetPercentFromCanvas": 0,
+          "topOffsetPercentFromCanvas": 0,
+          "widthPercentOfCanvas": 0.9
+      },
+      "fill": "#000000",
+      "font": "sans-serif",
+      "maxSize": 48,
+      "size": 48,
+      "value": ""
+    },
+    {
+      "dimensions": {
+          "heightPercentOfCanvas": 0.20,
+          "leftOffsetPercentFromCanvas": 0,
+          "topOffsetPercentFromCanvas": 0.7,
+          "widthPercentOfCanvas": 0.9
+      },
+      "fill": "#000000",
+      "font": "sans-serif",
+      "maxSize": 48,
+      "size": 48,
+      "value": ""
+    },
+  ]}
 
   db.execute("INSERT INTO templates (templates) VALUES(?)", [templates.to_json.to_s])
 

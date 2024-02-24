@@ -194,6 +194,7 @@ footer {
 #templates {
   display: flex;
   gap: 6px;
+  overflow-x: scroll;
 }
 
 .template {
