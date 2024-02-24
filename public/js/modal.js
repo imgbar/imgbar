@@ -26,10 +26,6 @@ function handleImageUpload(e) {
   templatePostUpload.style.display = 'flex'
 }
 
-function handleAdd(e) {
-  //
-}
-
 templateButton.addEventListener('click', openModal)
 document.addEventListener('click', closeModal)
 templateInput.addEventListener('change', handleImageUpload)

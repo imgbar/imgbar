@@ -273,6 +273,7 @@ templateImages.forEach((img) => {
 async function getTemplate(id) {
   const res = await fetch(`/template/${id}`)
   const data = await res.json()
+  console.log(data)
   return data
 }
 
