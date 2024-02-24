@@ -291,6 +291,10 @@ footer {
   margin-top: 24px;
 }
 
+#template-post-public {
+  display: none;
+}
+
 @media (min-width: 800px) {
   #mg {
     flex-direction: row;

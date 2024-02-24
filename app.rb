@@ -1,22 +1,21 @@
 require 'sinatra'
 require 'uri'
-require_relative 'data.rb'
+require 'sqlite3'
+
+db = SQLite3::Database.new "templates.db"
+# db.results_as_hash = true
+
+Templates = db.execute("SELECT templates FROM templates").map do |row|
+  JSON.parse(row.first, {symbolize_names: true})
+end
+
+p Templates
 
 get '/memegenerator' do
   @title = 'Meme Generator'
   @templates = Templates
-  template = @templates[rand(0..@templates.length - 1)]
-  @selected_template_json = template.to_json
-
-  erb :generator
-end
-
-get '/memegenerator/:template' do
-  @templates = Templates
-  p params[:template]
-  template = @templates.find { |t| t[:slug] == params[:template]}
-
-  @title = "#{template[:title]} Meme Generator"
+  template = @templates[2]
+  p template
   @selected_template_json = template.to_json
 
   erb :generator

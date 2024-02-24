@@ -4,6 +4,7 @@ const templateImg = document.getElementById('template-img')
 const templatePostUpload = document.getElementById('template-post-upload')
 const templateCheckbox = document.getElementById('template-checkbox')
 const templateInput = document.getElementById('template-input')
+const templatePostPublicDiv = document.getElementById('template-post-public')
 
 function openModal() {
   templateModal.classList.add('modal-open')
@@ -20,12 +21,21 @@ function closeModal(e) {
   }
 }
 
-function handleModal(e) {
+function handleImageUpload(e) {
   const file = e.target.files[0]
   templateImg.src = URL.createObjectURL(file)
   templatePostUpload.style.display = 'flex'
 }
 
+function handleTemplateSharing(e) {}
+
 templateButton.addEventListener('click', openModal)
 document.addEventListener('click', closeModal)
-templateInput.addEventListener('change', handleModal)
+templateInput.addEventListener('change', handleImageUpload)
+templateCheckbox.addEventListener('change', (e) => {
+  if (e.currentTarget.checked) {
+    templatePostPublicDiv.style.display = 'block'
+  } else if (!e.currentTarget.checked) {
+    templatePostPublicDiv.style.display = 'none'
+  }
+})
