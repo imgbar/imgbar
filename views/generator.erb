@@ -43,22 +43,18 @@
 
 <div id='template-modal' class='modal'>
   <div class='modal-body'>
-    <label id='template-label' for='template-input'>Upload template</label> 
-    <input id='template-input' autocomplete='off' type='file' accept='image/jpeg, image/png' >
 
-    <div id='template-post-upload'>
-      <img id='template-img' />
-      <div>
-        <input id='template-checkbox' type='checkbox' >
-        <label for='template-checkbox'>Make template public</label>
-      </div>
-
-      <div id='template-post-public'>
-        <input type='text' placeholder='Template name' />
-      </div>
-      <button>Add</button>
-    </div>
-
+    <form
+      hx-encoding='multipart/form-data'
+      hx-post='/add'
+    >
+        <label id='template-label' for='template-input'>Upload template</label> 
+        <input name='image' id='template-input' autocomplete='off' type='file' accept='image/jpeg, image/png' >
+        <div id='template-post-upload'>
+          <img id='template-img' />
+          <button>Add</button>
+        </div>
+    </form>
 
   </div>
 </div>

@@ -4,7 +4,7 @@ const templateImg = document.getElementById('template-img')
 const templatePostUpload = document.getElementById('template-post-upload')
 const templateCheckbox = document.getElementById('template-checkbox')
 const templateInput = document.getElementById('template-input')
-const templatePostPublicDiv = document.getElementById('template-post-public')
+const templateAddButton = document.getElementById('template-add')
 
 function openModal() {
   templateModal.classList.add('modal-open')
@@ -17,7 +17,6 @@ function closeModal(e) {
     templateModal.classList.remove('modal-open')
     templatePostUpload.style.display = 'none'
     templateImg.src = ''
-    templateCheckbox.checked = false
   }
 }
 
@@ -27,15 +26,11 @@ function handleImageUpload(e) {
   templatePostUpload.style.display = 'flex'
 }
 
-function handleTemplateSharing(e) {}
+function handleAdd(e) {
+  //
+}
 
 templateButton.addEventListener('click', openModal)
 document.addEventListener('click', closeModal)
 templateInput.addEventListener('change', handleImageUpload)
-templateCheckbox.addEventListener('change', (e) => {
-  if (e.currentTarget.checked) {
-    templatePostPublicDiv.style.display = 'block'
-  } else if (!e.currentTarget.checked) {
-    templatePostPublicDiv.style.display = 'none'
-  }
-})
+// templateAddButton.addEventListener('click', handleAdd)

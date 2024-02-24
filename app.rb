@@ -9,13 +9,12 @@ Templates = db.execute("SELECT templates FROM templates").map do |row|
   JSON.parse(row.first, {symbolize_names: true})
 end
 
-p Templates
+# p Templates
 
 get '/memegenerator' do
   @title = 'Meme Generator'
   @templates = Templates
   template = @templates[2]
-  p template
   @selected_template_json = template.to_json
 
   erb :generator
@@ -44,4 +43,15 @@ post '/search' do
       <p>#{result[:title]}</p>
     </div>"
   end
+end
+
+post '/add' do
+  image = params["image"]["tempfile"]
+  ext = File.extname(params["image"]["filename"])
+  image_name = "1#{ext}"
+  File.open("public/media/#{image_name}", 'wb') do |file|
+    file.write(image.read)
+  end
+
+  "200"
 end
