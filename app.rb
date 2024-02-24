@@ -2,7 +2,7 @@ require 'sinatra'
 require 'uri'
 require 'sqlite3'
 
-db = SQLite3::Database.new "templates.db"
+db = SQLite3::Database.new "main.db"
 # db.results_as_hash = true
 
 Templates = db.execute("SELECT templates FROM templates").map do |row|
