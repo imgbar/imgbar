@@ -5,6 +5,10 @@ const templatePostUpload = document.getElementById('template-post-upload')
 const templateCheckbox = document.getElementById('template-checkbox')
 const templateInput = document.getElementById('template-input')
 const templateAddButton = document.getElementById('template-add')
+const templatePublicCheckbox = document.getElementById(
+  'template-public-checkbox'
+)
+const templatePublicDiv = document.getElementById('template-post-public')
 
 function openModal() {
   templateModal.classList.add('modal-open')
@@ -41,7 +45,16 @@ async function handleAdd(e) {
   window.dispatchEvent(templateAddedEvent)
 }
 
+function handlePublicChange(e) {
+  if (e.target.checked) {
+    templatePublicDiv.style.display = 'block'
+  } else if (!e.target.checked) {
+    templatePublicDiv.style.display = 'none'
+  }
+}
+
 templateButton.addEventListener('click', openModal)
 document.addEventListener('click', handleClose)
 templateInput.addEventListener('change', handleImageUpload)
 templateAddButton.addEventListener('click', handleAdd)
+templatePublicCheckbox.addEventListener('change', handlePublicChange)

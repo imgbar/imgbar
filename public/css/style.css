@@ -283,7 +283,6 @@ footer {
 }
 
 #template-post-upload {
-  /* display: flex; */
   display: none;
   flex-direction: column;
   justify-content: center;
