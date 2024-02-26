@@ -30,7 +30,15 @@ function handleImageUpload(e) {
   templatePostUpload.style.display = 'flex'
 }
 
-function handleAdd(e) {}
+async function handleAdd(e) {
+  const formData = new FormData()
+  formData.append('image', templateInput.files[0])
+  const res = await fetch('/add', { method: 'post', body: formData })
+  const data = await res.json()
+
+  const templateAddedEvent = new CustomEvent('templateAdded', { detail: data })
+  window.dispatchEvent(templateAddedEvent)
+}
 
 templateButton.addEventListener('click', openModal)
 document.addEventListener('click', handleClose)
