@@ -36,6 +36,7 @@ async function handleAdd(e) {
   const res = await fetch('/add', { method: 'post', body: formData })
   const data = await res.json()
 
+  closeModal()
   const templateAddedEvent = new CustomEvent('templateAdded', { detail: data })
   window.dispatchEvent(templateAddedEvent)
 }

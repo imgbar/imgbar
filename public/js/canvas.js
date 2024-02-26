@@ -313,3 +313,8 @@ addTextElement.addEventListener('click', (e) => {
   selectedTemplate.texts.push(newText)
   setupCanvas()
 })
+
+window.addEventListener('templateAdded', (e) => {
+  selectedTemplate = e.detail
+  setupCanvas()
+})
