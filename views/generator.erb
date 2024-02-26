@@ -44,17 +44,12 @@
 <div id='template-modal' class='modal'>
   <div class='modal-body'>
 
-    <form
-      hx-encoding='multipart/form-data'
-      hx-post='/add'
-    >
-        <label id='template-label' for='template-input'>Upload template</label> 
-        <input name='image' id='template-input' autocomplete='off' type='file' accept='image/jpeg, image/png' >
-        <div id='template-post-upload'>
-          <img id='template-img' />
-          <button>Add</button>
-        </div>
-    </form>
+    <label id='template-label' for='template-input'>Upload template</label>
+    <input name='image' id='template-input' autocomplete='off' type='file' accept='image/jpeg, image/png' >
+    <div id='template-post-upload'>
+      <img id='template-img' />
+      <button id='template-add'>Add</button>
+    </div>
 
   </div>
 </div>

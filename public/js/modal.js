@@ -10,13 +10,17 @@ function openModal() {
   templateModal.classList.add('modal-open')
 }
 
-function closeModal(e) {
+function closeModal() {
+  templateModal.classList.remove('modal-open')
+  templatePostUpload.style.display = 'none'
+  templateImg.src = ''
+}
+
+function handleClose(e) {
   const clickedOnTrigger = e.target === templateButton
   const clickedOnModal = e.target.closest('.modal-open')
   if (!clickedOnTrigger && !clickedOnModal) {
-    templateModal.classList.remove('modal-open')
-    templatePostUpload.style.display = 'none'
-    templateImg.src = ''
+    closeModal()
   }
 }
 
@@ -26,7 +30,9 @@ function handleImageUpload(e) {
   templatePostUpload.style.display = 'flex'
 }
 
+function handleAdd(e) {}
+
 templateButton.addEventListener('click', openModal)
-document.addEventListener('click', closeModal)
+document.addEventListener('click', handleClose)
 templateInput.addEventListener('change', handleImageUpload)
-// templateAddButton.addEventListener('click', handleAdd)
+templateAddButton.addEventListener('click', handleAdd)

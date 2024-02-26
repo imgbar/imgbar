@@ -56,7 +56,8 @@ post '/add' do
   file_path = "public#{file_path_relative}"
 
   File.write(file_path, file)
-  templates = {id: rand(10..50),
+
+  new_template = {id: rand(10..50),
   imagePath: file_path_relative,
   title: 'foobar', 
   texts: [
@@ -88,7 +89,7 @@ post '/add' do
     },
   ]}
 
-  db.execute("INSERT INTO templates (templates) VALUES(?)", [templates.to_json.to_s])
+  db.execute("INSERT INTO templates (templates) VALUES(?)", [new_template.to_json.to_s])
 
-  "200"
+  new_template.to_json
 end
