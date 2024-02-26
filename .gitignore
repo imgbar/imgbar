@@ -1,5 +1,6 @@
+.vscode
 .env
-/design
 *.db
 *.sqbpro
+/design
 public/media
