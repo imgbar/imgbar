@@ -1,4 +1,5 @@
 .env
-*.excalidraw
 /design
+*.db
 *.sqbpro
+public/media
