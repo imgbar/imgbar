@@ -34,23 +34,30 @@ function handleImageUpload(e) {
   templatePostUpload.style.display = 'flex'
 }
 
-async function handleAdd(e) {
-  const formData = new FormData()
-  formData.append('image', templateInput.files[0])
-  const res = await fetch('/add', { method: 'post', body: formData })
-  const data = await res.json()
-
-  closeModal()
-  const templateAddedEvent = new CustomEvent('templateAdded', { detail: data })
-  window.dispatchEvent(templateAddedEvent)
-}
-
 function handlePublicChange(e) {
   if (e.target.checked) {
     templatePublicDiv.style.display = 'block'
   } else if (!e.target.checked) {
     templatePublicDiv.style.display = 'none'
   }
+}
+
+async function handleAdd(e) {
+  const formData = new FormData()
+  formData.append('image', templateInput.files[0])
+
+  if (templatePublicCheckbox.checked) {
+    const templateNameInput = document.getElementById('template-name')
+    console.log(templateNameInput.value)
+    formData.append('name', templateNameInput.value)
+  }
+
+  const res = await fetch('/add', { method: 'post', body: formData })
+  const data = await res.json()
+
+  closeModal()
+  const templateAddedEvent = new CustomEvent('templateAdded', { detail: data })
+  window.dispatchEvent(templateAddedEvent)
 }
 
 templateButton.addEventListener('click', openModal)

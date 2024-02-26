@@ -50,6 +50,8 @@ end
 
 post '/add' do
   file = params["image"]["tempfile"].read
+  name = params["name"]
+  
   ext = File.extname(params["image"]["filename"])
   file_name = SecureRandom.hex(3) + ext
   file_path_relative = "/media/#{file_name}"
@@ -57,37 +59,38 @@ post '/add' do
 
   File.write(file_path, file)
 
-  new_template = {id: rand(10..50),
-  imagePath: file_path_relative,
-  title: 'foobar', 
-  texts: [
-    {
-      "dimensions": {
-          "heightPercentOfCanvas": 0.2,
-          "leftOffsetPercentFromCanvas": 0,
-          "topOffsetPercentFromCanvas": 0,
-          "widthPercentOfCanvas": 0.9
+  new_template = {
+    id: rand(10..50),
+    imagePath: file_path_relative,
+    title: name || 'temp', 
+    texts: [
+      {
+        "dimensions": {
+            "heightPercentOfCanvas": 0.2,
+            "leftOffsetPercentFromCanvas": 0,
+            "topOffsetPercentFromCanvas": 0,
+            "widthPercentOfCanvas": 0.9
+        },
+        "fill": "#000000",
+        "font": "sans-serif",
+        "maxSize": 48,
+        "size": 48,
+        "value": ""
       },
-      "fill": "#000000",
-      "font": "sans-serif",
-      "maxSize": 48,
-      "size": 48,
-      "value": ""
-    },
-    {
-      "dimensions": {
-          "heightPercentOfCanvas": 0.20,
-          "leftOffsetPercentFromCanvas": 0,
-          "topOffsetPercentFromCanvas": 0.7,
-          "widthPercentOfCanvas": 0.9
+      {
+        "dimensions": {
+            "heightPercentOfCanvas": 0.20,
+            "leftOffsetPercentFromCanvas": 0,
+            "topOffsetPercentFromCanvas": 0.7,
+            "widthPercentOfCanvas": 0.9
+        },
+        "fill": "#000000",
+        "font": "sans-serif",
+        "maxSize": 48,
+        "size": 48,
+        "value": ""
       },
-      "fill": "#000000",
-      "font": "sans-serif",
-      "maxSize": 48,
-      "size": 48,
-      "value": ""
-    },
-  ]}
+    ]}
 
   db.execute("INSERT INTO templates (templates) VALUES(?)", [new_template.to_json.to_s])
 
