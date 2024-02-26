@@ -65,30 +65,30 @@ post '/add' do
     title: name || 'temp', 
     texts: [
       {
-        "dimensions": {
-            "heightPercentOfCanvas": 0.2,
-            "leftOffsetPercentFromCanvas": 0,
-            "topOffsetPercentFromCanvas": 0,
-            "widthPercentOfCanvas": 0.9
+        dimensions: {
+            heightPercentOfCanvas: 0.2,
+            leftOffsetPercentFromCanvas: 0,
+            topOffsetPercentFromCanvas: 0,
+            widthPercentOfCanvas: 0.9
         },
-        "fill": "#000000",
-        "font": "sans-serif",
-        "maxSize": 48,
-        "size": 48,
-        "value": ""
+        fill: "#000000",
+        font: "sans-serif",
+        maxSize: 48,
+        size: 48,
+        value: ""
       },
       {
-        "dimensions": {
-            "heightPercentOfCanvas": 0.20,
-            "leftOffsetPercentFromCanvas": 0,
-            "topOffsetPercentFromCanvas": 0.7,
-            "widthPercentOfCanvas": 0.9
+        dimensions: {
+            heightPercentOfCanvas: 0.20,
+            leftOffsetPercentFromCanvas: 0,
+            topOffsetPercentFromCanvas: 0.7,
+            widthPercentOfCanvas: 0.9
         },
-        "fill": "#000000",
-        "font": "sans-serif",
-        "maxSize": 48,
-        "size": 48,
-        "value": ""
+        fill: "#000000",
+        font: "sans-serif",
+        maxSize: 48,
+        size: 48,
+        value: ""
       },
     ]}
 

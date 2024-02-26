@@ -44,20 +44,50 @@ function handlePublicChange(e) {
 
 async function handleAdd(e) {
   const formData = new FormData()
-  formData.append('image', templateInput.files[0])
+  const image = templateInput.files[0]
+  formData.append('image', image)
 
-  if (templatePublicCheckbox.checked) {
-    const templateNameInput = document.getElementById('template-name')
+  const isPublic = templatePublicCheckbox.checked
+  const templateNameInput = document.getElementById('template-name')
+
+  if (isPublic) {
     console.log(templateNameInput.value)
     formData.append('name', templateNameInput.value)
+
+    const res = await fetch('/add', { method: 'post', body: formData })
+    const data = await res.json()
+
+    closeModal()
+    const templateAddedEvent = new CustomEvent('templateAdded', {
+      detail: data,
+    })
+    window.dispatchEvent(templateAddedEvent)
+  } else {
+    closeModal()
+    const localTemplateAddedEvent = new CustomEvent('localTemplateAdded', {
+      detail: {
+        imagePath: URL.createObjectURL(image),
+        id: Math.floor(Math.random() * 50),
+        texts: [
+          {
+            dimensions: {
+              heightPercentOfCanvas: 0.25,
+              leftOffsetPercentFromCanvas: 0.032,
+              topOffsetPercentFromCanvas: 0.3617662549526796,
+              widthPercentOfCanvas: 0.35000000000000003,
+            },
+            fill: '#000000',
+            font: 'sans-serif',
+            maxSize: 48,
+            size: 48,
+            value: '',
+          },
+        ],
+        title: 'Temp',
+      },
+    })
+    window.dispatchEvent(localTemplateAddedEvent)
   }
-
-  const res = await fetch('/add', { method: 'post', body: formData })
-  const data = await res.json()
-
-  closeModal()
-  const templateAddedEvent = new CustomEvent('templateAdded', { detail: data })
-  window.dispatchEvent(templateAddedEvent)
 }
 
 templateButton.addEventListener('click', openModal)

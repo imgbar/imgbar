@@ -318,3 +318,10 @@ window.addEventListener('templateAdded', (e) => {
   selectedTemplate = e.detail
   setupCanvas()
 })
+
+console.log(selectedTemplate)
+
+window.addEventListener('localTemplateAdded', (e) => {
+  selectedTemplate = e.detail
+  setupCanvas()
+})
