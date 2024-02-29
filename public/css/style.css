@@ -89,7 +89,7 @@ footer {
   flex-direction: column;
   justify-content: center;
 
-  background-color: var(--gray-2);
+  background-color: var(--gray-3);
   padding: 24px;
   border-radius: 2px;
   margin: 0 auto;
