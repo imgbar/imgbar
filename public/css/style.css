@@ -104,16 +104,19 @@ footer {
   margin: 0 auto;
 }
 
+.card {
+  background-color: var(--bg-card-color);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 2px;
+}
+
 #mg {
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  background-color: var(--bg-card-color);
-  padding: 24px;
-  border-radius: 2px;
   margin: 0 auto;
-  border: 1px solid var(--border-color);
 }
 
 #canvas {
@@ -171,6 +174,7 @@ footer {
   color: inherit;
   border: 1px solid var(--border-color);
   padding: 4px;
+  height: 48px;
 }
 
 .text-box {
@@ -218,6 +222,6 @@ footer {
   margin-block: 48px 64px;
 }
 
-#what > div {
+#what > div:not(:last-child) {
   margin-bottom: 24px;
 }
