@@ -186,7 +186,7 @@ footer {
 }
 
 #what {
-  margin-block: 32px;
+  margin-block: 48px 64px;
 }
 
 #what > div {

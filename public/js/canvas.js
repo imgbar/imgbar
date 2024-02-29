@@ -49,7 +49,7 @@ function getImagePath() {
   const imageUrl = window.location.href.split('=')[1];
   if (imageUrl) {
     return decodeURIComponent(imageUrl);
-  } else return '/public/media/chris.jpg';
+  } else return '/public/assets/chris.jpg';
 }
 
 function drawTexts() {
