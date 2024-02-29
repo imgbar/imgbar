@@ -13,45 +13,36 @@
     </header>
     <main>
       <h1 class="page-title">Image Editor</h1>
+
       <section id="mg">
         <div id="canvas-parent">
           <canvas id="canvas"></canvas>
         </div>
 
         <div id="mg-controls-parent">
-          <div id="actions-top"></div>
           <div id="mg-controls"></div>
 
           <div id="mg-actions">
             <button id="add-text">Add Text</button>
-            <button id="download-btn">Generate Image</button>
           </div>
+        </div>
+      </section>
+
+      <section id="what">
+        <div>
+          <h3>What is this?</h3>
+          <p>
+            Imgbar is an image editor that you can use to quickly add text to
+            images.
+          </p>
         </div>
       </section>
     </main>
 
-    <div id="template-modal" class="modal">
-      <div class="modal-body">
-        <label id="template-label" for="template-input">Upload template</label>
-        <input
-          name="image"
-          id="template-input"
-          autocomplete="off"
-          type="file"
-          accept="image/jpeg, image/png"
-        />
-        <div id="template-post-upload">
-          <img id="template-img" />
-
-          <button id="template-add">Add</button>
-        </div>
-      </div>
-    </div>
-
-    <script type="module" src="/public/js/main.js"></script>
-
     <footer>
       <img id="footer-logo" src="/public/assets/icon-logo.png" />
     </footer>
+
+    <script type="module" src="/public/js/main.js"></script>
   </body>
 </html>

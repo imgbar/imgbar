@@ -10,6 +10,38 @@ const ctx = canvas.getContext('2d');
 let image;
 let texts;
 
+let selectedTemplate = {
+  imagePath: getImagePath(),
+  texts: [
+    {
+      dimensions: {
+        heightPercentOfCanvas: 0.2,
+        widthPercentOfCanvas: 1,
+        leftOffsetPercentFromCanvas: 0,
+        topOffsetPercentFromCanvas: 0,
+      },
+      fill: '#000000',
+      font: 'sans-serif',
+      maxSize: 48,
+      size: 48,
+      value: '',
+    },
+    {
+      dimensions: {
+        heightPercentOfCanvas: 0.2,
+        widthPercentOfCanvas: 1,
+        leftOffsetPercentFromCanvas: 0,
+        topOffsetPercentFromCanvas: 0.8,
+      },
+      fill: '#000000',
+      font: 'sans-serif',
+      maxSize: 48,
+      size: 48,
+      value: '',
+    },
+  ],
+};
+
 /**
  * Called to set the selectedTemplate. Gets the url of the image from query params. Falls back to a local placeholder image if it doesn't exists.
  */
@@ -19,8 +51,6 @@ function getImagePath() {
     return decodeURIComponent(imageUrl);
   } else return '/public/media/chris.jpg';
 }
-
-let selectedTemplate = { imagePath: getImagePath(), texts: [] };
 
 function drawTexts() {
   texts.forEach((text) => {
@@ -255,30 +285,7 @@ function resizeCanvas() {
   });
 }
 
-function setDownloadLink() {
-  function downloadMeme() {
-    const link = document.createElement('a');
-    link.download = 'meme.png';
-    link.href = canvas.toDataURL();
-    link.innerHTML = 'Download';
-    link.id = 'download-btn';
-    link.click();
-  }
-
-  document
-    .getElementById('download-btn')
-    .addEventListener('click', downloadMeme);
-}
-
 resizeCanvas();
-setDownloadLink();
-
-async function getTemplate(id) {
-  const res = await fetch(`/template/${id}`);
-  const data = await res.json();
-  console.log(data);
-  return data;
-}
 
 function createTextareas() {
   const mgControls = document.getElementById('mg-controls');
@@ -293,6 +300,7 @@ function createTextareas() {
     textarea.placeholder = `Text #${i + 1}`;
     textarea.name = `Text #${i + 1}`;
     textarea.value = text.value;
+    if (i === 0) textarea.autofocus = 'on';
     mgControl.appendChild(textarea);
 
     const div = document.createElement('div');
