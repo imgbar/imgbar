@@ -9,12 +9,14 @@
   </head>
   <body>
     <header>
-      <img id="header-logo" src="/public/assets/logo-type.png" />
+      <a href=".">
+        <img id="header-logo" src="/public/assets/logo-type.png" />
+      </a>
     </header>
     <main>
       <h1 class="page-title">Image Editor</h1>
 
-      <section class="card" id="mg">
+      <section class="card" id="editor">
         <div id="canvas-parent">
           <canvas id="canvas"></canvas>
         </div>
@@ -23,7 +25,7 @@
           <div id="mg-controls"></div>
 
           <div id="mg-actions">
-            <button id="add-text">Add Text</button>
+            <button class="btn" id="add-text">Add Text</button>
           </div>
         </div>
       </section>
@@ -52,7 +54,9 @@
     </main>
 
     <footer>
-      <img id="footer-logo" src="/public/assets/logo-icon.png" />
+      <a href=".">
+        <img id="footer-logo" src="/public/assets/logo-icon.png" />
+      </a>
     </footer>
 
     <script type="module" src="/public/js/main.js"></script>

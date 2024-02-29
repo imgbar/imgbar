@@ -1,38 +1,6 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-* {
-  margin: 0;
-}
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-a {
-  text-decoration: inherit;
-  color: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
+/* 
+Variable declarion. Reassigning variables if user agent prefers dark mode.
+*/
 :root {
   --gray-0: #f8f9fa;
   --gray-1: #f1f3f5;
@@ -63,6 +31,35 @@ button {
     --color: var(--gray-0);
     --border-color: var(--gray-6);
   }
+}
+
+/* 
+CSS Rest
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
 }
 
 body {
@@ -100,7 +97,7 @@ footer {
 }
 
 #footer-logo {
-  height: 24px;
+  height: 32px;
   margin: 0 auto;
 }
 
@@ -111,11 +108,23 @@ footer {
   border-radius: 2px;
 }
 
-#mg {
+.btn {
+  cursor: pointer;
+  padding: 8px 16px;
+  background-color: #339af0;
+  border: none;
+  color: inherit;
+  border-radius: 2px;
+}
+
+.btn:hover {
+  background-color: #228be6;
+}
+
+#editor {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   margin: 0 auto;
 }
 
@@ -129,8 +138,16 @@ footer {
   user-select: none;
 }
 
+#mg-controls {
+  flex-grow: 1;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 @media (min-width: 800px) {
-  #mg {
+  #editor {
     flex-direction: row;
     gap: 24px;
   }
@@ -138,18 +155,14 @@ footer {
   #canvas-parent {
     width: 450px;
   }
+
+  #mg-controls {
+    margin-top: 0px;
+  }
 }
 
 #mg-controls-parent {
   flex-grow: 1;
-}
-
-#mg-controls {
-  flex-grow: 1;
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
 #mg-actions > button {
