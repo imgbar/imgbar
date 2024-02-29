@@ -9,6 +9,7 @@ const ctx = canvas.getContext('2d')
 
 let image
 let texts
+let selectedTemplate = { imagePath: '/public/media/chris.jpg', texts: [] }
 
 function drawTexts() {
   texts.forEach((text) => {
@@ -175,8 +176,6 @@ function createHeightHandle() {
 }
 
 async function setupCanvas() {
-  document.getElementById('mg-title').innerHTML = selectedTemplate.title
-
   image = await setImage(selectedTemplate.imagePath)
   texts = selectedTemplate.texts
 
@@ -261,15 +260,6 @@ function setDownloadLink() {
 resizeCanvas()
 setDownloadLink()
 
-const templateImages = document.querySelectorAll('#templates>img')
-templateImages.forEach((img) => {
-  img.addEventListener('click', async (e) => {
-    const templateId = e.target.dataset.id
-    selectedTemplate = await getTemplate(templateId)
-    await setupCanvas()
-  })
-})
-
 async function getTemplate(id) {
   const res = await fetch(`/template/${id}`)
   const data = await res.json()
@@ -309,19 +299,20 @@ function createTextareas() {
 
 const addTextElement = document.getElementById('add-text')
 addTextElement.addEventListener('click', (e) => {
-  const newText = structuredClone(selectedTemplate.texts[0])
+  const newText = {
+    dimensions: {
+      heightPercentOfCanvas: 0.25,
+      leftOffsetPercentFromCanvas: 0.032,
+      topOffsetPercentFromCanvas: 0.3617662549526796,
+      widthPercentOfCanvas: 0.35000000000000003,
+    },
+    fill: '#000000',
+    font: 'sans-serif',
+    maxSize: 48,
+    size: 48,
+    value: '',
+  }
+
   selectedTemplate.texts.push(newText)
-  setupCanvas()
-})
-
-window.addEventListener('templateAdded', (e) => {
-  selectedTemplate = e.detail
-  setupCanvas()
-})
-
-console.log(selectedTemplate)
-
-window.addEventListener('localTemplateAdded', (e) => {
-  selectedTemplate = e.detail
   setupCanvas()
 })
