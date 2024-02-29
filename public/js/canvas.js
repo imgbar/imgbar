@@ -148,6 +148,7 @@ function createWidthHandle() {
   texts.forEach((text, i) => {
     const div = document.getElementById(`text-box-${i + 1}`);
     const widthHandle = document.createElement('div');
+    widthHandle.classList.add('text-box-handle');
     widthHandle.classList.add('text-box-width-handle');
 
     let isDragging = false;
@@ -185,6 +186,7 @@ function createHeightHandle() {
   texts.forEach((text, i) => {
     const div = document.getElementById(`text-box-${i + 1}`);
     const heightHandle = document.createElement('div');
+    heightHandle.classList.add('text-box-handle');
     heightHandle.classList.add('text-box-height-handle');
 
     let isDragging = false;
