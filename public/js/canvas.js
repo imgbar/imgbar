@@ -9,7 +9,7 @@ const ctx = canvas.getContext('2d')
 
 let image
 let texts
-let selectedTemplate = { imagePath: '../media/chris.jpg', texts: [] }
+let selectedTemplate = { imagePath: '/public/media/chris.jpg', texts: [] }
 
 function drawTexts() {
   texts.forEach((text) => {
