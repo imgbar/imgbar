@@ -300,7 +300,6 @@ function createTextareas() {
     textarea.placeholder = `Text #${i + 1}`;
     textarea.name = `Text #${i + 1}`;
     textarea.value = text.value;
-    if (i === 0) textarea.autofocus = 'on';
     mgControl.appendChild(textarea);
 
     const div = document.createElement('div');
