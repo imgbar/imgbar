@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="public/css/style.css" />
+
+    <title>Imgbar</title>
+  </head>
+  <body>
+    <header>
+      <img id="header-logo" src="public/assets/logo.png" />
+    </header>
+    <main>
+      <h1 class="page-title">Image Editor</h1>
+      <section id="mg">
+        <div id="canvas-parent">
+          <canvas id="canvas"></canvas>
+        </div>
+
+        <div id="mg-controls-parent">
+          <div id="actions-top"></div>
+          <h3 id="mg-title"></h3>
+
+          <div id="mg-controls"></div>
+
+          <div id="mg-actions">
+            <button id="add-text">Add Text</button>
+            <button id="download-btn">Download Meme</button>
+            <button id="template-trigger">Upload New Template</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="template-modal" class="modal">
+      <div class="modal-body">
+        <label id="template-label" for="template-input">Upload template</label>
+        <input
+          name="image"
+          id="template-input"
+          autocomplete="off"
+          type="file"
+          accept="image/jpeg, image/png"
+        />
+        <div id="template-post-upload">
+          <img id="template-img" />
+
+          <button id="template-add">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="public/js/main.js"></script>
+
+    <footer>
+      <img id="footer-logo" src="public/assets/icon-logo.png" />
+    </footer>
+  </body>
+</html>
