@@ -1,19 +1,30 @@
-'use strict'
+'use strict';
 
-import { drawBackgroundImage, setImage } from './image.js'
+import { drawBackgroundImage, setImage } from './image.js';
 
-const { drawText } = window.canvasTxt
+const { drawText } = window.canvasTxt;
 
-const canvas = document.getElementById('canvas')
-const ctx = canvas.getContext('2d')
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-let image
-let texts
-let selectedTemplate = { imagePath: '/public/media/chris.jpg', texts: [] }
+let image;
+let texts;
+
+/**
+ * Called to set the selectedTemplate. Gets the url of the image from query params. Falls back to a local placeholder image if it doesn't exists.
+ */
+function getImagePath() {
+  const imageUrl = window.location.href.split('=')[1];
+  if (imageUrl) {
+    return decodeURIComponent(imageUrl);
+  } else return '/public/media/chris.jpg';
+}
+
+let selectedTemplate = { imagePath: getImagePath(), texts: [] };
 
 function drawTexts() {
   texts.forEach((text) => {
-    ctx.fillStyle = text.fill
+    ctx.fillStyle = text.fill;
     drawText(ctx, text.value, {
       x: text.dimensions.leftOffsetPercentFromCanvas * canvas.width,
       y: text.dimensions.topOffsetPercentFromCanvas * canvas.height,
@@ -21,186 +32,188 @@ function drawTexts() {
       height: text.dimensions.heightPercentOfCanvas * canvas.height,
       font: text.font,
       fontSize: text.size,
-    })
-  })
+    });
+  });
 }
 
 function updateTextBoxes() {
   texts.forEach((text, i) => {
-    const div = document.getElementById(`text-box-${i + 1}`)
-    const responsiveCanvas = canvas.getBoundingClientRect()
+    const div = document.getElementById(`text-box-${i + 1}`);
+    const responsiveCanvas = canvas.getBoundingClientRect();
 
     div.style.left =
       text.dimensions.leftOffsetPercentFromCanvas * responsiveCanvas.width +
-      'px'
+      'px';
     div.style.top =
       text.dimensions.topOffsetPercentFromCanvas * responsiveCanvas.height +
-      'px'
+      'px';
     div.style.width =
-      text.dimensions.widthPercentOfCanvas * responsiveCanvas.width + 'px'
+      text.dimensions.widthPercentOfCanvas * responsiveCanvas.width + 'px';
     div.style.height =
-      text.dimensions.heightPercentOfCanvas * responsiveCanvas.height + 'px'
-  })
+      text.dimensions.heightPercentOfCanvas * responsiveCanvas.height + 'px';
+  });
 }
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawBackgroundImage(image)
-  drawTexts()
-  updateTextBoxes()
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackgroundImage(image);
+  drawTexts();
+  updateTextBoxes();
 }
 
 function createTextBoxes() {
-  const textBoxes = document.querySelectorAll('.text-box')
-  textBoxes.forEach((box) => box.remove())
+  const textBoxes = document.querySelectorAll('.text-box');
+  textBoxes.forEach((box) => box.remove());
 
   texts.forEach((text, i) => {
-    const div = document.createElement('div')
-    div.classList.add('text-box')
-    div.id = `text-box-${i + 1}`
+    const div = document.createElement('div');
+    div.classList.add('text-box');
+    div.id = `text-box-${i + 1}`;
 
-    let isDragging = false
-    let offsetX
-    let offsetY
+    let isDragging = false;
+    let offsetX;
+    let offsetY;
 
     div.addEventListener('mousedown', (e) => {
-      isDragging = true
+      isDragging = true;
 
-      offsetX = e.clientX - div.offsetLeft
-      offsetY = e.clientY - div.offsetTop
-    })
+      offsetX = e.clientX - div.offsetLeft;
+      offsetY = e.clientY - div.offsetTop;
+    });
 
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
-        let x = e.clientX - offsetX
-        let y = e.clientY - offsetY
+        let x = e.clientX - offsetX;
+        let y = e.clientY - offsetY;
 
-        const responsiveCanvas = canvas.getBoundingClientRect()
+        const responsiveCanvas = canvas.getBoundingClientRect();
 
-        if (x < 0) x = 0
+        if (x < 0) x = 0;
         if (x > responsiveCanvas.width - div.offsetWidth) {
-          x = responsiveCanvas.width - div.offsetWidth
+          x = responsiveCanvas.width - div.offsetWidth;
         }
 
-        if (y < 0) y = 0
+        if (y < 0) y = 0;
         if (y > responsiveCanvas.height - div.offsetHeight) {
-          y = responsiveCanvas.height - div.offsetHeight
+          y = responsiveCanvas.height - div.offsetHeight;
         }
 
-        text.dimensions.leftOffsetPercentFromCanvas = x / responsiveCanvas.width
-        text.dimensions.topOffsetPercentFromCanvas = y / responsiveCanvas.height
-        draw()
+        text.dimensions.leftOffsetPercentFromCanvas =
+          x / responsiveCanvas.width;
+        text.dimensions.topOffsetPercentFromCanvas =
+          y / responsiveCanvas.height;
+        draw();
       }
-    })
+    });
 
     document.addEventListener('mouseup', () => {
-      isDragging = false
-    })
+      isDragging = false;
+    });
 
-    document.getElementById('canvas-parent').append(div)
-  })
+    document.getElementById('canvas-parent').append(div);
+  });
 }
 
 function createWidthHandle() {
   texts.forEach((text, i) => {
-    const div = document.getElementById(`text-box-${i + 1}`)
-    const widthHandle = document.createElement('div')
-    widthHandle.classList.add('text-box-width-handle')
+    const div = document.getElementById(`text-box-${i + 1}`);
+    const widthHandle = document.createElement('div');
+    widthHandle.classList.add('text-box-width-handle');
 
-    let isDragging = false
-    let offsetX
+    let isDragging = false;
+    let offsetX;
 
     widthHandle.addEventListener('mousedown', (e) => {
-      e.stopPropagation()
-      isDragging = true
-      offsetX = e.clientX
-    })
+      e.stopPropagation();
+      isDragging = true;
+      offsetX = e.clientX;
+    });
 
     widthHandle.addEventListener('mousemove', (e) => {
       if (isDragging) {
-        const moveX = e.clientX - offsetX
+        const moveX = e.clientX - offsetX;
 
         if (moveX > 0) {
-          text.dimensions.widthPercentOfCanvas += 0.05
+          text.dimensions.widthPercentOfCanvas += 0.05;
         } else if (moveX < 0) {
-          text.dimensions.widthPercentOfCanvas -= 0.05
+          text.dimensions.widthPercentOfCanvas -= 0.05;
         }
 
-        draw()
+        draw();
       }
-    })
+    });
 
     document.addEventListener('mouseup', (e) => {
-      isDragging = false
-    })
+      isDragging = false;
+    });
 
-    div.appendChild(widthHandle)
-  })
+    div.appendChild(widthHandle);
+  });
 }
 
 function createHeightHandle() {
   texts.forEach((text, i) => {
-    const div = document.getElementById(`text-box-${i + 1}`)
-    const heightHandle = document.createElement('div')
-    heightHandle.classList.add('text-box-height-handle')
+    const div = document.getElementById(`text-box-${i + 1}`);
+    const heightHandle = document.createElement('div');
+    heightHandle.classList.add('text-box-height-handle');
 
-    let isDragging = false
-    let offsetY
+    let isDragging = false;
+    let offsetY;
 
     heightHandle.addEventListener('mousedown', (e) => {
-      e.stopPropagation()
-      isDragging = true
-      offsetY = e.clientY
-    })
+      e.stopPropagation();
+      isDragging = true;
+      offsetY = e.clientY;
+    });
 
     heightHandle.addEventListener('mousemove', (e) => {
       if (isDragging) {
-        const moveY = e.clientY - offsetY
+        const moveY = e.clientY - offsetY;
 
         if (moveY > 0) {
-          text.dimensions.heightPercentOfCanvas += 0.05
+          text.dimensions.heightPercentOfCanvas += 0.05;
         } else if (moveY < 0) {
-          text.dimensions.heightPercentOfCanvas -= 0.05
+          text.dimensions.heightPercentOfCanvas -= 0.05;
         }
 
-        draw()
+        draw();
       }
-    })
+    });
 
     document.addEventListener('mouseup', (e) => {
-      isDragging = false
-    })
+      isDragging = false;
+    });
 
-    div.appendChild(heightHandle)
-  })
+    div.appendChild(heightHandle);
+  });
 }
 
 async function setupCanvas() {
-  image = await setImage(selectedTemplate.imagePath)
-  texts = selectedTemplate.texts
+  image = await setImage(selectedTemplate.imagePath);
+  texts = selectedTemplate.texts;
 
-  createTextBoxes()
-  createHeightHandle()
-  createWidthHandle()
+  createTextBoxes();
+  createHeightHandle();
+  createWidthHandle();
 
-  createTextareas()
+  createTextareas();
 
-  draw()
+  draw();
 
-  updateValue()
-  updateFillColor()
+  updateValue();
+  updateFillColor();
 }
 
-setupCanvas()
+setupCanvas();
 
 function updateValue() {
-  const textareas = document.querySelectorAll('.mg-textarea')
+  const textareas = document.querySelectorAll('.mg-textarea');
   textareas.forEach((textarea, i) => {
     textarea.addEventListener('keyup', (e) => {
-      const text = texts[i]
-      text.value = e.target.value
+      const text = texts[i];
+      text.value = e.target.value;
       const textBoxHeight =
-        text.dimensions.heightPercentOfCanvas * canvas.height
+        text.dimensions.heightPercentOfCanvas * canvas.height;
 
       function setTextSize(textSize) {
         const { height } = drawText(ctx, text.value, {
@@ -210,94 +223,94 @@ function updateValue() {
           height: text.dimensions.heightPercentOfCanvas * canvas.height,
           font: text.font,
           fontSize: textSize,
-        })
+        });
 
         if (height > textBoxHeight) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height)
-          setTextSize(textSize - 1)
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          setTextSize(textSize - 1);
         } else {
-          text.size = textSize
+          text.size = textSize;
         }
       }
 
-      setTextSize(text.maxSize)
-      draw()
-    })
-  })
+      setTextSize(text.maxSize);
+      draw();
+    });
+  });
 }
 
 function updateFillColor() {
-  const fillInputs = document.querySelectorAll('#fill')
+  const fillInputs = document.querySelectorAll('#fill');
   fillInputs.forEach((input, i) => {
     input.addEventListener('input', (e) => {
-      texts[i].fill = e.target.value
-      draw()
-    })
-  })
+      texts[i].fill = e.target.value;
+      draw();
+    });
+  });
 }
 
 function resizeCanvas() {
   window.addEventListener('resize', () => {
-    draw()
-  })
+    draw();
+  });
 }
 
 function setDownloadLink() {
   function downloadMeme() {
-    const link = document.createElement('a')
-    link.download = 'meme.png'
-    link.href = canvas.toDataURL()
-    link.innerHTML = 'Download'
-    link.id = 'download-btn'
-    link.click()
+    const link = document.createElement('a');
+    link.download = 'meme.png';
+    link.href = canvas.toDataURL();
+    link.innerHTML = 'Download';
+    link.id = 'download-btn';
+    link.click();
   }
 
   document
     .getElementById('download-btn')
-    .addEventListener('click', downloadMeme)
+    .addEventListener('click', downloadMeme);
 }
 
-resizeCanvas()
-setDownloadLink()
+resizeCanvas();
+setDownloadLink();
 
 async function getTemplate(id) {
-  const res = await fetch(`/template/${id}`)
-  const data = await res.json()
-  console.log(data)
-  return data
+  const res = await fetch(`/template/${id}`);
+  const data = await res.json();
+  console.log(data);
+  return data;
 }
 
 function createTextareas() {
-  const mgControls = document.getElementById('mg-controls')
-  mgControls.innerHTML = ''
+  const mgControls = document.getElementById('mg-controls');
+  mgControls.innerHTML = '';
 
   texts.forEach((text, i) => {
-    const mgControl = document.createElement('div')
-    mgControl.classList.add('mg-control')
+    const mgControl = document.createElement('div');
+    mgControl.classList.add('mg-control');
 
-    const textarea = document.createElement('textarea')
-    textarea.classList.add('mg-textarea')
-    textarea.placeholder = `Text #${i + 1}`
-    textarea.name = `Text #${i + 1}`
-    textarea.value = text.value
-    mgControl.appendChild(textarea)
+    const textarea = document.createElement('textarea');
+    textarea.classList.add('mg-textarea');
+    textarea.placeholder = `Text #${i + 1}`;
+    textarea.name = `Text #${i + 1}`;
+    textarea.value = text.value;
+    mgControl.appendChild(textarea);
 
-    const div = document.createElement('div')
-    const input = document.createElement('input')
-    input.type = 'color'
+    const div = document.createElement('div');
+    const input = document.createElement('input');
+    input.type = 'color';
 
-    input.name = 'fill'
-    input.id = 'fill'
-    input.value = text.fill
+    input.name = 'fill';
+    input.id = 'fill';
+    input.value = text.fill;
 
-    div.appendChild(input)
+    div.appendChild(input);
 
-    mgControls.appendChild(mgControl)
-    mgControl.appendChild(div)
-  })
+    mgControls.appendChild(mgControl);
+    mgControl.appendChild(div);
+  });
 }
 
-const addTextElement = document.getElementById('add-text')
+const addTextElement = document.getElementById('add-text');
 addTextElement.addEventListener('click', (e) => {
   const newText = {
     dimensions: {
@@ -311,8 +324,8 @@ addTextElement.addEventListener('click', (e) => {
     maxSize: 48,
     size: 48,
     value: '',
-  }
+  };
 
-  selectedTemplate.texts.push(newText)
-  setupCanvas()
-})
+  selectedTemplate.texts.push(newText);
+  setupCanvas();
+});
