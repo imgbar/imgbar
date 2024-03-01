@@ -344,8 +344,8 @@ const uploadInput = document.getElementById('upload-input');
 uploadBtn.addEventListener('click', (e) => {
   if (!uploadInput.value) return;
   const imageUrl = uploadInput.value;
-  const BASE_URL = 'http://127.0.0.1:5500';
-  // const BASE_URL = 'https://imgbar.lol';
-  const newUrl = `${BASE_URL}/?image=${encodeURIComponent(imageUrl)}`;
+  const newUrl = `${window.location.origin}/?image=${encodeURIComponent(
+    imageUrl
+  )}`;
   window.location.href = newUrl;
 });
