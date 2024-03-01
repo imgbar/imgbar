@@ -18,14 +18,23 @@
 
       <section class="card" id="editor">
         <div id="canvas-parent">
-          <canvas id="canvas"></canvas>
+          <canvas id="canvas" width="450" height="450"></canvas>
         </div>
 
         <div id="mg-controls-parent">
           <div id="mg-controls"></div>
 
           <div id="mg-actions">
-            <button class="btn" id="add-text">Add Text</button>
+            <button class="btn btn-secondary" id="add-text">Add Text</button>
+            <details id="upload">
+              <summary class="btn btn-primary">Upload Image</summary>
+              <div id="upload-inner">
+                <input id="upload-input" type="text" placeholder="Image URL" />
+                <button id="upload-btn" class="btn btn-secondary">
+                  Upload
+                </button>
+              </div>
+            </details>
           </div>
         </div>
       </section>

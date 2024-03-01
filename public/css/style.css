@@ -20,7 +20,7 @@ Variable declarion. Reassigning variables if user agent prefers dark mode.
   --bg-card-color: var(--gray-0);
   --bg-textarea-color: var(--gray-0);
   --color: var(--gray-9);
-  --border-color: var(--gray-5);
+  --border-color: var(--gray-6);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,7 +29,6 @@ Variable declarion. Reassigning variables if user agent prefers dark mode.
     --bg-card-color: var(--gray-8);
     --bg-textarea-color: var(--gray-9);
     --color: var(--gray-0);
-    --border-color: var(--gray-6);
   }
 }
 
@@ -110,15 +109,46 @@ footer {
 
 .btn {
   cursor: pointer;
-  padding: 8px 16px;
-  background-color: #339af0;
-  border: none;
-  color: inherit;
   border-radius: 2px;
+  color: var(--color);
+  border: none;
+  display: inline-block;
+  user-select: none;
 }
 
-.btn:hover {
-  background-color: #228be6;
+.btn-primary {
+  color: var(--gray-0);
+  padding: 8px 16px;
+  background-color: #339af0;
+}
+
+.btn-primary:hover {
+  background-color: #1c7ed6;
+}
+
+.btn-secondary {
+  padding: 6px 12px;
+  background-color: var(--bg-textarea-color);
+  border: 1px solid var(--border-color);
+}
+
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+#upload {
+  margin-top: 24px;
+}
+
+#upload-inner {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 #editor {
